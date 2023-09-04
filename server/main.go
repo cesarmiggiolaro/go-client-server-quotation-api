@@ -110,7 +110,7 @@ func saveQuotation(quotation *Quotation) error {
 		quotation.Usdbrl.Code,
 		quotation.Usdbrl.Codein,
 		quotation.Usdbrl.Bid,
-		quotation.Usdbrl.CreateDate,
+		time.Now(),
 	)
 
 	if err != nil {
