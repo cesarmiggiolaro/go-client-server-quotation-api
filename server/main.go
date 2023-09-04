@@ -97,6 +97,7 @@ func saveQuotation(quotation *Quotation) error {
 		fmt.Println("Erro ao iniciar database", err)
 		return err
 	}
+	defer db.Close()
 
 	tx, err := db.BeginTx(ctx, nil)
 	if err != nil {
@@ -123,6 +124,8 @@ func saveQuotation(quotation *Quotation) error {
 		return err
 	}
 
+	fmt.Println("Registro inserido com sucesso")
+
 	return nil
 }
 
@@ -132,9 +135,8 @@ func DatabaseConextion() (*sql.DB, error) {
 		fmt.Println("Erro ao abrir conexão:", err)
 		return nil, err
 	}
-	defer db.Close()
 
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS quotation (id INTEGER PRIMARY KEY, code VARCHAR(3), codein VARCHAR(3), bid DECIMAL(10,4) created_at DATE_TIME)")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS quotation (id VARCHAR(255) PRIMARY KEY, code VARCHAR(3), codein VARCHAR(3), bid DECIMAL(10,4), created_at DATE_TIME)")
 	if err != nil {
 		fmt.Println("Erro ao criar tabela:", err)
 		return nil, err
