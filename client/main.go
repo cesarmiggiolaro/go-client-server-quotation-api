@@ -39,10 +39,10 @@ func main() {
 
 	fmt.Println("Corpo da resposta:", string(body))
 
-	var quotation map[string]interface{}
-	err = json.Unmarshal(body, &quotation)
+	var quotation string
+	err = json.Unmarshal([]byte(body), &quotation)
 	if err != nil {
-		fmt.Println("Erro ao decodificar o JSON:", err)
+		fmt.Println("Erro ao decodificar JSON:", err)
 		return
 	}
 
